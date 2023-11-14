@@ -2,6 +2,7 @@
     "entry_points": [{
         "application_type":"RShiny",
         "dependencies": {
+            "ggvis": "0.4.8"
             "software_specification": "rstudio-23.1-r4.2"
         }
     }]
