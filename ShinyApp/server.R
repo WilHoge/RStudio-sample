@@ -1,4 +1,6 @@
-install.packages('ggvis')
+if (!require("ggvis")) {
+  install.packages('ggvis')
+}
 
 library(ggvis)
 library(dplyr)
