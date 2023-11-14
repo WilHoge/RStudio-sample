@@ -1,7 +1,3 @@
-if (!require("ggvis")) {
-  install.packages('ggvis')
-}
-
 library(ggvis)
 library(dplyr)
 if (FALSE) {
