@@ -1,3 +1,5 @@
+.libPaths(c("/cc-home/_global_/R/_global_/R",.libPaths()))
+
 library(ggvis)
 
 # For dropdown menu
