@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "name": "RStudio Test",
+    "description": "",
+    "origin_country": "US",
+    "tags": [
+      "dsx"
+    ],
+    "asset_type": "hardware_specification",
+    "rov": {
+      "mode": 0
+    },
+    "asset_category": "USER",
+    "created_at": "2023-11-14T17:24:48Z",
+    "created": 1699982688596,
+    "asset_id": "hardware_specification.RStudioTest",
+    "asset_attributes": [
+      "hardware_specification"
+    ]
+  },
+  "entity": {
+    "hardware_specification": {
+      "nodes": {
+        "cpu": {
+          "units": "1",
+          "model": ""
+        },
+        "mem": {
+          "size": "2Gi"
+        }
+      }
+    }
+  },
+  "attachments": []
+}
