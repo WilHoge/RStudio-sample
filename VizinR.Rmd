@@ -1,0 +1,100 @@
+---
+title: 'Research Studio: Visualizing Data in R'
+author: "Cindy Traub, PhD"
+date: "September 16, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# install.packages("ggplot2")
+library(ggplot2)
+```
+
+# What would you like to plot today?
+
+R is a fantastic resource for cleaning, aggregating, and analyzing data of many types. Our goal in this Research Studio is to introduce several types of plots you can easily produce from a dataframe within R.
+
+## Sample data included in [ggplot2](http://docs.ggplot2.org/current/#data)
+
+We look at the [diamonds](http://docs.ggplot2.org/current/diamonds.html) data set. Follow the link to access the metadata.
+
+# Some common plots (using base R)
+
+We can examine the diamonds data in several text-based ways:
+
+```{r diamonds}
+head(diamonds)
+class(diamonds)
+str(diamonds)
+summary(diamonds)
+names(diamonds)
+colSums(is.na(diamonds))
+table(diamonds$color)
+table(diamonds$cut)
+```
+
+Let's look at some basic visuals using this data:
+
+```{r diamondbaseplots}
+plot(diamonds$color)
+plot(diamonds$price)
+plot(sort(diamonds$price))
+plot(diamonds$carat, diamonds$price)
+hist(diamonds$price)
+boxplot(diamonds$price ~ diamonds$clarity)
+```
+
+We can add lines, labels, etc. But if you want to change color, position, or other features, you have to run each of the three lines again.
+
+```{r caratPriceLabels}
+plot(diamonds$carat, diamonds$price)
+abline(h=8000, col="red")
+text(4, 9000, "Two months salary", col="red")
+plot(sort(diamonds$carat))
+abline(h=.5, col="blue")
+abline(h=.75, col="green")
+abline(h=1, col="red")
+abline(h=1.5, col="papayawhip")
+```
+
+## How to search the help
+
+Type ? followed by your command of interest, for example ?abline or ?plot.
+
+### Task for you: use the help file to determine valid color names that R would know.
+
+The help files can be a bit daunting at first. You often don't need to read them from start to end like a novel. They have a standardized structure, and will give you detail on parameters you can set for the different functions you use
+
+# Some common plots (using ggplot)
+
+Note that we can store a collection of the parameters to a variable, then call that to display the plot. This is useful when you want to repeat some features of your setup.
+
+```{r diamond_ggplots}
+qplot(x=carat, y=price, data=diamonds, geom="point")
+g<-ggplot(data=diamonds, aes(x=carat, y=price)) 
+g + geom_point()
+g + geom_point() + ggtitle("The impact of diamond size on price")
+g + geom_point() + geom_abline(slope=0, intercept = 8000, col="red") +ggtitle("Scatter of carat vs price")
+```
+
+## Faceting
+
+Often it is useful to visualize subsets of your data.
+
+```{r facet_diamonds}
+g + geom_point() + ggtitle("The impact of diamond size on price") + facet_grid(color ~clarity, labeller = label_both)
+```
+
+Perhaps coloring by one and faceting by the other is more informative:
+
+```{r facet2_diamonds}
+g_faceted<-ggplot(data=diamonds, aes(x=carat, y=price, color=color)) + geom_point(alpha=.1) + ggtitle("The impact of diamond size on price") + facet_grid(. ~clarity, labeller = label_both)
+g_faceted
+```
+
+# Exporting your plots
+
+```{r export}
+ggsave("plot.png", width=5, height=5)
+```
